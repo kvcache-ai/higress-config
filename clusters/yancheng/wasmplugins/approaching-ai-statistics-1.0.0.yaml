@@ -1,0 +1,61 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: approaching-ai-statistics
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: approaching-ai-statistics
+    higress.io/wasm-plugin-version: 1.0.0
+  name: approaching-ai-statistics-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    attributes:
+    - apply_to_log: true
+      key: model
+      value: model
+      value_source: request_body
+    - apply_to_log: true
+      key: input_token
+      rule: replace
+      value: usage.prompt_tokens
+      value_source: response_streaming_body
+    - apply_to_log: true
+      key: output_token
+      rule: replace
+      value: usage.completion_tokens
+      value_source: response_streaming_body
+    - apply_to_log: true
+      key: total_token
+      rule: replace
+      value: usage.total_tokens
+      value_source: response_streaming_body
+    - apply_to_log: true
+      key: cached_tokens
+      rule: replace
+      value: usage.prompt_tokens_details.cached_tokens
+      value_source: response_streaming_body
+    - apply_to_log: true
+      key: cached_tokens
+      rule: replace
+      value: usage.prompt_tokens_details.cached_tokens
+      value_source: response_body
+    - apply_to_log: true
+      key: consumer
+      value: x-mse-consumer
+      value_source: request_header
+    - apply_to_log: true
+      key: debug_auth
+      value: authorization
+      value_source: request_header
+    use_default_response_attributes: false
+  defaultConfigDisable: false
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  matchRules: []
+  phase: STATS
+  priority: 100
+  url: oci://10.120.64.120:31622/approaching/ai-statistics:1.0.5-fixed-oci

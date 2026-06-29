@@ -1,0 +1,33 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Authentication based on API Key.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i4/O1CN01BPFGlT1pGZ2VDLgaH_!!6000000005333-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Auth
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: auth
+    higress.io/wasm-plugin-name: key-auth
+    higress.io/wasm-plugin-version: 1.0.0
+  name: key-auth-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    global_auth: false
+    keys:
+    - authorization
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      allow:
+      - glm
+    configDisable: true
+    ingress:
+    - glm-5.1
+  phase: AUTHN
+  priority: 310
+  url: oci://10.25.110.224:30007/wasmplugins/key-auth:2.0.0

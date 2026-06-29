@@ -1,0 +1,45 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: glm-se
+  namespace: higress-system
+spec:
+  endpoints:
+  - address: st2-higress.shangtang2.svc.cluster.local
+    weight: 80
+  - address: bx-higress-hi.bingxing.svc.cluster.local
+    weight: 40
+  - address: glm51-router-3.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-4.default.svc.cluster.local
+    weight: 1
+  - address: glm51-router-5.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-11.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-12.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-6.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-13.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-14.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-7.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-8.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-9.default.svc.cluster.local
+    weight: 20
+  - address: glm51-router-10.default.svc.cluster.local
+    weight: 2
+  - address: glm51-router-1.default.svc.cluster.local
+    weight: 10
+  hosts:
+  - glm-cluster.local
+  location: MESH_INTERNAL
+  ports:
+  - name: http
+    number: 30002
+    protocol: HTTP
+  resolution: DNS

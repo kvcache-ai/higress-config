@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: kimi-2.6
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: kimi-2.6
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: kimi-2.6
+        route:
+          cluster: outbound|30002||kimi-2.6-cluster.local
+          retry_policy:
+            host_selection_retry_max_attempts: 5
+            num_retries: 1
+            retry_host_predicate:
+            - name: envoy.retry_host_predicates.previous_hosts
+              typed_config:
+                '@type': type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+            retry_on: 5xx,retriable-status-codes,non_idempotent,connect-failure,refused-stream,unavailable,cancelled
+          timeout: 0s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

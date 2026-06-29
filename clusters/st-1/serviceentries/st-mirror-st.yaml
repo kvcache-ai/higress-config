@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: st-mirror-st
+  namespace: higress-system
+spec:
+  endpoints:
+  - address: mock-a.mock.svc.cluster.local
+    weight: 20
+  hosts:
+  - st-mirror-st.local
+  location: MESH_INTERNAL
+  ports:
+  - name: http
+    number: 30002
+    protocol: HTTP
+  resolution: DNS

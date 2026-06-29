@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: test-4
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: test-4
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: test-4
+        route:
+          cluster: outbound|30002||hash-test-cluster.local
+          hash_policy:
+          - header:
+              header_name: session-id
+          retry_policy:
+            host_selection_retry_max_attempts: 10
+            retry_host_predicate:
+            - name: envoy.retry_host_predicates.previous_hosts
+              typed_config:
+                '@type': type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+          timeout: 3600s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

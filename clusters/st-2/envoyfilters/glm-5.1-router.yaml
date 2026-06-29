@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: glm-5.1-router
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: glm-5.1
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: glm-5.1
+        route:
+          cluster: outbound|30002||glm-5.1-cluster.local
+          timeout: 3600s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

@@ -1,0 +1,384 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-0
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-0
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-0
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-1
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-1
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-1
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-2
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-2
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-2
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-3
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-3
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-3
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-4
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-4
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-4
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-5
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-5
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-5
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-6
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-6
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-6
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-7
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-7
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-7
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-8
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-8
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-8
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-9
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-9
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-9
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-10
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-10
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-10
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-11
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-11
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-11
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-12
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-12
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-12
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-13
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-13
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-13
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-14
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-14
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-14
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    monitoring: scrape
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-15
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  name: glm51-router-15
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 30002
+    protocol: TCP
+    targetPort: 30002
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 29000
+  selector:
+    rolebasedgroup.workloads.x-k8s.io/name: glm51-router-15
+    rolebasedgroup.workloads.x-k8s.io/role: router
+  type: ClusterIP

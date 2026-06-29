@@ -1,0 +1,23 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: chat-image-limit
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: chat-image-limit
+    higress.io/wasm-plugin-version: 1.0.0
+  name: chat-image-limit-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    max_images: 3
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules: []
+  phase: UNSPECIFIED_PHASE
+  priority: 800
+  url: oci://10.25.110.224:30007/approachingai/chat-image-limit:1.0.1

@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: night-traffic-2
+  namespace: higress-system
+spec:
+  endpoints: []
+  hosts:
+  - night-traffic-2-cluster.local
+  location: MESH_INTERNAL
+  ports:
+  - name: http
+    number: 30002
+    protocol: HTTP
+  resolution: DNS

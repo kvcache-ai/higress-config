@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: night-traffic-2-cluster.local
+    higress.io/exact-match-header-authorization: Bearer api_9RALMgu7hwJHSVGf2DUvy5n5DDP7MEFf7rU2GffzQjPiskGA6SpCFU7l
+    higress.io/http2-max-concurrent-streams: "10000"
+    higress.io/ignore-path-case: "false"
+    higress.io/max-requests-per-connection: "0"
+    higress.io/proxy-body-size: 10240m
+    higress.io/proxy-buffering: "off"
+    higress.io/proxy-idle-timeout: 3600s
+    higress.io/proxy-read-timeout: "86400"
+    higress.io/proxy-send-timeout: 3600s
+    higress.io/stream-idle-timeout: 3600s
+    higress.io/upstream-idle-timeout: "86400"
+  labels:
+    higress.io/domain_higress-default-domain: "true"
+    higress.io/resource-definer: higress
+  name: night-traffic-2
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+  - host: ktaas.llmapi.approaching-ai.com
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - ktaas.llmapi.approaching-ai.com
+    secretName: 3m.ktaas.llmapi.approaching-ai.com
+  - secretName: default
+status:
+  loadBalancer: {}

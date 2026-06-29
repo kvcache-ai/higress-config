@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: glm-5.1-mirror
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            action: ROUTE
+            name: glm
+    patch:
+      operation: MERGE
+      value:
+        route:
+          request_mirror_policies:
+          - cluster: outbound|8562||st-mirror-st.dns
+            runtime_fraction:
+              default_value:
+                denominator: HUNDRED
+                numerator: 0
+          - cluster: outbound|80||yc-higress.static
+            runtime_fraction:
+              default_value:
+                denominator: HUNDRED
+                numerator: 0
+  workloadSelector:
+    labels:
+      app: higress-gateway

@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: higress-per-connection-buffer-limit
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: LISTENER
+    match:
+      context: GATEWAY
+    patch:
+      operation: MERGE
+      value:
+        per_connection_buffer_limit_bytes: 83886080
+  - applyTo: CLUSTER
+    match:
+      context: GATEWAY
+    patch:
+      operation: MERGE
+      value:
+        per_connection_buffer_limit_bytes: 83886080
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: mirrors-traffic-router
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: mirrors-traffic
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: mirrors-traffic
+        route:
+          cluster: outbound|30002||mirrors-traffic-cluster.local
+          timeout: 3600s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

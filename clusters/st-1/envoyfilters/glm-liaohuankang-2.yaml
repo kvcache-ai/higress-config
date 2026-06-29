@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: glm-liaohuankang-2
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: glm-liaohuankang-2
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: glm-liaohuankang-2
+        route:
+          cluster: outbound|30002||glm-cluster.local
+          hash_policy:
+          - header:
+              header_name: session-id
+          retry_policy:
+            retry_host_predicate:
+            - name: envoy.retry_host_predicates.previous_hosts
+              typed_config:
+                '@type': type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+          timeout: 3600s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

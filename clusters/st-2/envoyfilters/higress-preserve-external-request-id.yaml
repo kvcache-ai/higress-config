@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: higress-preserve-external-request-id
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: NETWORK_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: envoy.filters.network.http_connection_manager
+    patch:
+      operation: MERGE
+      value:
+        name: envoy.filters.network.http_connection_manager
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          preserve_external_request_id: true
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway
+      higress: higress-system-higress-gateway

@@ -1,0 +1,52 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Implement cluster-level rate limiting based
+      on specific key values, which can be derived from URL parameters, HTTP request
+      headers, client IP addresses, etc.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i3/O1CN01bAFa9k1t1gdQcVTH0_!!6000000005842-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Cluster Rate Limit
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: traffic
+    higress.io/wasm-plugin-name: cluster-key-rate-limit
+    higress.io/wasm-plugin-version: 1.0.0
+  name: cluster-key-rate-limit-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    redis:
+      service_name: redis.dns
+    rule_items:
+    - limit_by_header: Authorization
+      limit_keys:
+      - key: Bearer api_7e4f2d91c8b34a8fa2d6b5e17f93ac4ei9b6c1d2e5f7a8c0d
+        query_per_second: 500
+      - key: Bearer api_aK7mP9xQ2vL4wR8sT1yU5zC3bN6dE0fG7hI2jK4lM8nO1pQ3rS
+        query_per_second: 500
+    - limit_by_per_header: Authorization
+      limit_keys:
+      - key: '*'
+        query_per_second: 500
+    rule_name: api-key-request-header-limit-rule
+    show_limit_quota_header: true
+  defaultConfigDisable: false
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      redis:
+        service_name: redis.dns
+      rule_name: api-key-request-header-limit-rule
+      show_limit_quota_header: true
+    configDisable: true
+    ingress:
+    - kimi-router-ha
+  phase: UNSPECIFIED_PHASE
+  priority: 20
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/cluster-key-rate-limit:2.0.0

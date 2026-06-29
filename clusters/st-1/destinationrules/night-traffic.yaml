@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: night-traffic
+  namespace: higress-system
+spec:
+  host: night-traffic-cluster.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        h2UpgradePolicy: UPGRADE
+        http1MaxPendingRequests: 30000
+        http2MaxRequests: 30000
+        idleTimeout: 300s
+        maxRequestsPerConnection: 0
+      tcp:
+        maxConnections: 10000
+    loadBalancer:
+      consistentHash:
+        httpHeaderName: session-id

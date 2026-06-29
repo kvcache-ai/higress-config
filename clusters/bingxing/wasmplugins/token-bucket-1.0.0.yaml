@@ -1,0 +1,20 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: token-bucket
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: token-bucket
+    higress.io/wasm-plugin-version: 1.0.0
+  name: token-bucket-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  phase: UNSPECIFIED_PHASE
+  priority: 200
+  url: oci://10.25.110.224:30007/approachingai/token-bucket:v0.0.2

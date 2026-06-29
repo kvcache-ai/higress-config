@@ -1,0 +1,173 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Authentication based on API Key.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i4/O1CN01BPFGlT1pGZ2VDLgaH_!!6000000005333-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Auth
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: auth
+    higress.io/wasm-plugin-name: key-auth
+    higress.io/wasm-plugin-version: 1.0.0
+  name: key-auth-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    consumers:
+    - credential: Bearer api_boeVCdjewrQoULrpCsoWfdjONEjTCMJSuW
+      name: kimi
+    - credential: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpXy
+      name: kimi-2.6
+    - credential: Bearer api_E9C277E845A9DFE97A4FD7CA4F8EE71E
+      name: liaohuankang
+    - credential: Bearer api_0C0544637CB34B1AA929072B2A35D4E4
+      name: wangbo
+    - credential: Bearer api_612c96169cab58a3_83562f4d4a05b7fe422e2a8c8461ed99
+      name: glm
+    - credential: Bearer api_612c96169cab58a3_83562f4d4a05b7fe422e2a8c8461ed88
+      name: glm-jd
+    - credential: Bearer api_123sN7kPqRfGtBvXmAzLcWjhQrTgYpDuEaS
+      name: glm-liaohuankang-1
+    - credential: Bearer api_123mR2sKtG7bN5xQv8cA3zJ6hP4dF1wE7L
+      name: glm-liaohuankang-2
+    - credential: Bearer api_5dF2gH7sJ9kP4qR6uX1vB3nM8zC2
+      name: glm-test
+    - credential: Bearer api_r3u3ThDcydF04rUb2LkQ2pg13W6AtA3wIcEGLpW09hnGRte5
+      name: ataas-api-glm
+    - credential: Bearer api_vXkQZmNpLwRjTyUfGhIoPaSdFkLxCvBnMq
+      name: bejingyidong
+    - credential: Bearer api_aK7mP9xQ2vL4wR8sT1yU5zC3bN6dE0fG7hI2jK4lM8nO1pQ3rS
+      name: glm-5.2
+    - credential: Bearer api_3c1f54ad03aadc59c2175072b0d04d70d34f768d746a9ae9ba
+      name: test-lzr
+    - credential: Bearer api_9RALMgu7hwJHSVGf2DUvy5n5DDP7MEFf7rU2GffzQjPiskGA6SpCFU7l
+      name: night-traffic-2
+    global_auth: false
+    keys:
+    - authorization
+  defaultConfigDisable: false
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      allow:
+      - glm-5.2
+    configDisable: false
+    ingress:
+    - glm
+  - config:
+      allow:
+      - glm
+    configDisable: false
+    ingress:
+    - glm-5.1
+  - config:
+      allow:
+      - glm-changting
+    configDisable: false
+    ingress:
+    - glm-changting
+  - config:
+      allow:
+      - glm-changting-2
+    configDisable: false
+    ingress:
+    - glm-changting-2
+  - config:
+      allow:
+      - glm-jd
+    configDisable: false
+    ingress:
+    - glm-jd
+  - config:
+      allow:
+      - glm-liaohuankang-1
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-1
+  - config:
+      allow:
+      - glm-liaohuankang-1
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-2
+  - config:
+      allow:
+      - glm-test
+    configDisable: false
+    ingress:
+    - glm-test
+  - config:
+      allow:
+      - glm-wangbo
+    configDisable: false
+    ingress:
+    - glm-wangbo
+  - config:
+      allow:
+      - img-limit-test
+    configDisable: false
+    ingress:
+    - img-limit-test
+  - config:
+      allow:
+      - kimi-2.6
+    configDisable: false
+    ingress:
+    - kimi-2.6
+  - config:
+      allow:
+      - kimi
+      - consumer2
+      - wangbo
+      - liaohuankang
+    configDisable: false
+    ingress:
+    - kimi-router-ha
+  - config:
+      allow:
+      - test-lzr
+    configDisable: false
+    ingress:
+    - mock-test-lzr
+  - config:
+      allow:
+      - ataas-api-glm
+    configDisable: false
+    ingress:
+    - night-traffic
+  - config:
+      allow:
+      - night-traffic-2
+    configDisable: false
+    ingress:
+    - night-traffic-2
+  - config:
+      allow:
+      - bejingyidong
+    configDisable: false
+    ingress:
+    - test-1
+  - config:
+      allow:
+      - test-2
+    configDisable: false
+    ingress:
+    - test-2
+  - config:
+      allow:
+      - test-3
+    configDisable: false
+    ingress:
+    - test-3
+  - config:
+      allow:
+      - test-4
+    configDisable: false
+    ingress:
+    - test-4
+  phase: AUTHN
+  priority: 310
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/key-auth:2.0.0

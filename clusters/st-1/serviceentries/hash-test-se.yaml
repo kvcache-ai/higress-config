@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: hash-test-se
+  namespace: higress-system
+spec:
+  endpoints:
+  - address: mock-chat-completions.default.svc.cluster.local
+    weight: 80
+  hosts:
+  - hash-test-cluster.local
+  location: MESH_INTERNAL
+  ports:
+  - name: http
+    number: 30002
+    protocol: HTTP
+  resolution: DNS

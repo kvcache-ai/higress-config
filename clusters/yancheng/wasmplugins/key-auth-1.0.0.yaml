@@ -1,0 +1,131 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Authentication based on API Key.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i4/O1CN01BPFGlT1pGZ2VDLgaH_!!6000000005333-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Auth
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: auth
+    higress.io/wasm-plugin-name: key-auth
+    higress.io/wasm-plugin-version: 1.0.0
+  name: key-auth-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    consumers:
+    - credential: Bearer api_7e4f2d91c8b34a8fa2d6b5e17f93ac4ei9b6c1d2e5f7a8c0d
+      name: glm-yancheng
+    - credential: Bearer api_aK7mP9xQ2vL4wR8sT1yU5zC3bN6dE0fG7hI2jK4lM8nO1pQ3rS
+      name: glm-5.2
+    - credential: Bearer api_5a9c3e7f1b2d4a8e6c0f9d3b7a1e5c8f2d4b6a0e9c7dx1dec
+      name: test-yancheng-ai-consumer
+    global_auth: false
+    keys:
+    - authorization
+  defaultConfigDisable: false
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      allow:
+      - glm
+    configDisable: false
+    ingress:
+    - glm
+  - config:
+      allow:
+      - glm-yancheng
+      - glm-5.2
+    configDisable: false
+    ingress:
+    - glm-5.2
+  - config:
+      allow:
+      - glm-changting
+    configDisable: false
+    ingress:
+    - glm-changting
+  - config:
+      allow:
+      - glm-changting-2
+    configDisable: false
+    ingress:
+    - glm-changting-2
+  - config:
+      allow:
+      - glm-jd
+    configDisable: false
+    ingress:
+    - glm-jd
+  - config:
+      allow:
+      - glm-liaohuankang-1
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-1
+  - config:
+      allow:
+      - glm-liaohuankang-2
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-2
+  - config:
+      allow:
+      - img-limit-test
+    configDisable: false
+    ingress:
+    - img-limit-test
+  - config:
+      allow:
+      - kimi-2.6
+    configDisable: false
+    ingress:
+    - kimi-2.6
+  - config:
+      allow:
+      - kimi
+      - consumer2
+      - wangbo
+      - liaohuankang
+    configDisable: false
+    ingress:
+    - kimi-router-ha
+  - config:
+      allow:
+      - test-1
+    configDisable: false
+    ingress:
+    - test-1
+  - config:
+      allow:
+      - test-2
+    configDisable: false
+    ingress:
+    - test-2
+  - config:
+      allow:
+      - test-3
+    configDisable: false
+    ingress:
+    - test-3
+  - config:
+      allow:
+      - test-4
+    configDisable: false
+    ingress:
+    - test-4
+  - config:
+      allow:
+      - test-yancheng-ai-consumer
+    configDisable: false
+    ingress:
+    - test-lzl
+  phase: AUTHN
+  priority: 310
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/key-auth:2.0.0

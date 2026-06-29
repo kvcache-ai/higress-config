@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: kimi-2.6-mirror
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            action: ROUTE
+            name: kimi-router-ha
+    patch:
+      operation: MERGE
+      value:
+        route:
+          request_mirror_policies:
+          - cluster: outbound|80||qjhs3-kimi-26-mirror.static
+            runtime_fraction:
+              default_value:
+                denominator: HUNDRED
+                numerator: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

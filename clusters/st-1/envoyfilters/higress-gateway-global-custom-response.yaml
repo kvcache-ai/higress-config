@@ -1,0 +1,34 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  annotations:
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app: higress-gateway
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: higress-gateway
+    app.kubernetes.io/version: 2.1.9
+    helm.sh/chart: higress-core-2.1.9
+    higress: higress-system-higress-gateway
+  name: higress-gateway-global-custom-response
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: envoy.filters.network.http_connection_manager
+    patch:
+      operation: INSERT_FIRST
+      value:
+        name: envoy.filters.http.custom_response
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.http.custom_response.v3.CustomResponse
+  workloadSelector:
+    labels:
+      app: higress-gateway
+      higress: higress-system-higress-gateway

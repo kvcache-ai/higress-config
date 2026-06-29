@@ -1,0 +1,46 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: token-bucket
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: token-bucket
+    higress.io/wasm-plugin-version: 1.0.0
+  name: token-bucket-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    debugMode: true
+    enabled: true
+    matchModels:
+    - qwen3-32b
+    matchSessionIDHeader: x-session-id
+    rules:
+    - maxTokens: 15
+      minTokens: 0
+      target: short
+    - maxTokens: 100
+      minTokens: 16
+      target: long-1
+    - maxTokens: -1
+      minTokens: 101
+      target: long-2
+    smgSessionIDHeader: X-SMG-Routing-Key
+    tokenEstimator:
+      chineseRatio1: 0.33
+      chineseRatio2: 0.3
+      englishRatio: 0.3
+      finalRatio: 0.65
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  matchRules: []
+  phase: UNSPECIFIED_PHASE
+  priority: 200
+  url: oci://10.12.11.9:16622/token-bucket:v0.0.2

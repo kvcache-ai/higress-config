@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: kimi-dr
+  namespace: higress-system
+spec:
+  host: kimi-cluster.local
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpHeaderName: x-session-id

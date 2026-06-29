@@ -1,0 +1,297 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: request-mapper
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: request-mapper
+    higress.io/wasm-plugin-version: 1.0.0
+  name: request-mapper-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    rules:
+    - match_value: disabled
+      replace: true
+      replace_key: thinking
+      source_key: thinking.type
+      source_type: body
+      target_key: chat_template_kwargs
+      target_type: body
+      target_value: '{"thinking": false}'
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  matchRules:
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-5.1
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-changting
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-changting-2
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-jd
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-1
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-liaohuankang-2
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-test
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm-wangbo
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: false
+        source_key: extra_body.thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"thinking": false}'
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"thinking": false}'
+    configDisable: false
+    ingress:
+    - kimi-2.6
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: false
+        source_key: extra_body.thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"thinking": false}'
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"thinking": false}'
+    configDisable: false
+    ingress:
+    - kimi-router-ha
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - mock-test-lzr
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - night-traffic
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - night-traffic-2
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - test-1
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - test-2
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - test-3
+  - config:
+      request_body_buffer_limit_mb: 20
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - test-4
+  phase: UNSPECIFIED_PHASE
+  priority: 1
+  url: oci://10.12.11.7:16622/approaching/request_mapper:20260528

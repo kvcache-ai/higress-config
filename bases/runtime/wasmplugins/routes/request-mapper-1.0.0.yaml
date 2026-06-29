@@ -1,0 +1,10 @@
+request_body_buffer_limit_mb: 20
+rules:
+- match_value: "disabled"
+  replace: true
+  replace_key: "thinking"
+  source_key: "thinking.type"
+  source_type: "body"
+  target_key: "chat_template_kwargs"
+  target_type: "body"
+  target_value: "{\"enable_thinking\": false}"

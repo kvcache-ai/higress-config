@@ -1,0 +1,5 @@
+reqRules:
+- headers:
+  - fromKey: "session-id"
+    toKey: "X-SMG-Routing-Key"
+  operate: "map"

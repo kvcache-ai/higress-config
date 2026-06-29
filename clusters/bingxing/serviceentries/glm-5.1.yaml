@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: glm-5.1
+  namespace: higress-system
+spec:
+  endpoints:
+  - address: glm51-router-1.default.svc.cluster.local
+    weight: 55
+  - address: glm51-router-2.default.svc.cluster.local
+    weight: 45
+  hosts:
+  - glm-5.1-cluster.local
+  location: MESH_INTERNAL
+  ports:
+  - name: http
+    number: 30002
+    protocol: HTTP
+  resolution: DNS

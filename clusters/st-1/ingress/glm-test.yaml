@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: glm-test-cluster.local
+    higress.io/exact-match-header-authorization: Bearer api_5dF2gH7sJ9kP4qR6uX1vB3nM8zC2
+    higress.io/http2-max-concurrent-streams: "10000"
+    higress.io/ignore-path-case: "false"
+    higress.io/max-requests-per-connection: "0"
+    higress.io/proxy-body-size: 10240m
+    higress.io/proxy-buffering: "off"
+    higress.io/proxy-idle-timeout: 3600s
+    higress.io/proxy-read-timeout: "86400"
+    higress.io/proxy-send-timeout: 3600s
+    higress.io/stream-idle-timeout: 3600s
+    higress.io/upstream-idle-timeout: "86400"
+  labels:
+    higress.io/domain_higress-default-domain: "true"
+    higress.io/resource-definer: higress
+  name: glm-test
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+  - host: ktaas.llmapi.approaching-ai.com
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - ktaas.llmapi.approaching-ai.com
+    secretName: ktaas-cert
+  - secretName: default
+status:
+  loadBalancer: {}

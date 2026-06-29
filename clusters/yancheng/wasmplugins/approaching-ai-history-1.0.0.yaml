@@ -1,0 +1,40 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: approaching-ai-history
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: approaching-ai-history
+    higress.io/wasm-plugin-version: 1.0.0
+  name: approaching-ai-history-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    enabled: true
+    logResponseCodes:
+    - "200"
+    - "400"
+    - "401"
+    - "403"
+    - "413"
+    - "404"
+    - "429"
+    - "500"
+    - "502"
+    - "503"
+    - "504"
+    matchUrls:
+    - /v1/chat/completions
+    - /v1/completions
+    reportingEndpoint: /model-logs
+    serviceName: model-log.dns
+    servicePort: 12345
+  defaultConfigDisable: false
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  phase: STATS
+  priority: 1000
+  url: oci://10.120.64.120:31622/approaching/ai-history:multi-chunks-fixed-oci

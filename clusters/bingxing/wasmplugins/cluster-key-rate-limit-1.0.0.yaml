@@ -1,0 +1,30 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Implement cluster-level rate limiting based
+      on specific key values, which can be derived from URL parameters, HTTP request
+      headers, client IP addresses, etc.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i3/O1CN01bAFa9k1t1gdQcVTH0_!!6000000005842-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Cluster Rate Limit
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: traffic
+    higress.io/wasm-plugin-name: cluster-key-rate-limit
+    higress.io/wasm-plugin-version: 1.0.0
+  name: cluster-key-rate-limit-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    redis:
+      service_name: redis.dns
+    rule_name: api-key-request-header-limit-rule
+    show_limit_quota_header: true
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules: []
+  phase: UNSPECIFIED_PHASE
+  priority: 20
+  url: oci://10.25.110.224:30007/wasmplugins/cluster-key-rate-limit:2.0.0

@@ -1,0 +1,57 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: request-mapper
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: request-mapper
+    higress.io/wasm-plugin-version: 1.0.0
+  name: request-mapper-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    rules:
+    - match_value: disabled
+      replace: true
+      replace_key: thinking
+      source_key: thinking.type
+      source_type: body
+      target_key: chat_template_kwargs
+      target_type: body
+      target_value: '{"thinking": false}'
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: IfNotPresent
+  matchRules:
+  - config:
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: false
+    ingress:
+    - glm
+  - config:
+      rules:
+      - match_value: disabled
+        replace: true
+        replace_key: thinking
+        source_key: thinking.type
+        source_type: body
+        target_key: chat_template_kwargs
+        target_type: body
+        target_value: '{"enable_thinking": false}'
+    configDisable: true
+    ingress:
+    - glm-5.1
+  phase: UNSPECIFIED_PHASE
+  priority: 1
+  url: oci://10.12.11.7:16622/request_mapper:v0.0.4

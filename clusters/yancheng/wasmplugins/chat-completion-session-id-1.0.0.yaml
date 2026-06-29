@@ -1,0 +1,29 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-title: chat-completion-session-id
+  labels:
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "false"
+    higress.io/wasm-plugin-category: custom
+    higress.io/wasm-plugin-name: chat-completion-session-id
+    higress.io/wasm-plugin-version: 1.0.0
+  name: chat-completion-session-id-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      hashHeader: session-id
+      matchHeader: request-id
+      maxContentLength: 4096
+      maxRequestBodyBytes: 20971520
+    configDisable: false
+    ingress:
+    - glm-5.2
+  phase: AUTHN
+  priority: 411
+  url: oci://10.120.64.120:31622/chat-completion-session-id:0.0.1-fixed-oci

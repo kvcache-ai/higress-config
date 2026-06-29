@@ -1,0 +1,49 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: hash-test
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: img-limit-test
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: img-limit-test
+        route:
+          cluster: outbound|30002||hash-test-cluster.local
+          hash_policy:
+          - header:
+              header_name: session-id
+          retry_policy:
+            host_selection_retry_max_attempts: 10
+            retry_host_predicate:
+            - name: envoy.retry_host_predicates.previous_hosts
+              typed_config:
+                '@type': type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+          timeout: 3600s
+  - applyTo: CLUSTER
+    match:
+      cluster:
+        name: outbound|30002||hash-test-cluster.local
+      context: GATEWAY
+    patch:
+      operation: MERGE
+      value:
+        lb_policy: RING_HASH
+        name: outbound|30002||hash-test-cluster.local
+        ring_hash_lb_config:
+          minimum_ring_size: 64
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

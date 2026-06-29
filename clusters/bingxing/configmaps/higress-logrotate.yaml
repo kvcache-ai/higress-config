@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  higress-logrotate: |
+    /var/log/proxy/access.log /var/log/proxy/upstream-attempt.log {
+        su 1337 1337
+        rotate 20
+        create 664 1337 1337
+        nocompress
+        missingok
+        notifempty
+        size 500M
+        sharedscripts
+        postrotate
+            ps aux|grep "envoy -c"|grep -v "grep"|awk  '{print $2}'|xargs -i kill -SIGUSR1 {}
+        endscript
+    }
+kind: ConfigMap
+metadata:
+  name: higress-logrotate
+  namespace: higress-system

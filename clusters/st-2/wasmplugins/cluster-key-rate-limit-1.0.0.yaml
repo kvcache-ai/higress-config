@@ -1,0 +1,78 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  annotations:
+    higress.io/wasm-plugin-description: Implement cluster-level rate limiting based
+      on specific key values, which can be derived from URL parameters, HTTP request
+      headers, client IP addresses, etc.
+    higress.io/wasm-plugin-icon: https://img.alicdn.com/imgextra/i3/O1CN01bAFa9k1t1gdQcVTH0_!!6000000005842-2-tps-42-42.png
+    higress.io/wasm-plugin-title: Key Cluster Rate Limit
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    higress.io/resource-definer: higress
+    higress.io/wasm-plugin-built-in: "true"
+    higress.io/wasm-plugin-category: traffic
+    higress.io/wasm-plugin-name: cluster-key-rate-limit
+    higress.io/wasm-plugin-version: 1.0.0
+  name: cluster-key-rate-limit-1.0.0
+  namespace: higress-system
+spec:
+  defaultConfig:
+    redis:
+      service_name: redis.dns
+    rule_items:
+    - limit_by_header: Authorization
+      limit_keys:
+      - key: Bearer api_boeVCdjewrQoULrpCsoWfdjONEjTCMJSuW
+        query_per_second: 6
+      - key: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpXy
+        query_per_second: 1000
+      - key: Bearer api_E9C277E845A9DFE97A4FD7CA4F8EE71E
+        query_per_minute: 20
+      - key: Bearer api_0C0544637CB34B1AA929072B2A35D4E4
+        query_per_minute: 20
+      - key: Bearer api_612c96169cab58a3_83562f4d4a05b7fe422e2a8c8461ed99
+        query_per_second: 5000
+      - key: Bearer api_612c96169cab58a3_83562f4d4a05b7fe422e2a8c8461ed88
+        query_per_minute: 20
+      - key: Bearer api_612c96169cab58a3_83562f4d4a05b7fe422e2a8c8461ed00
+        query_per_second: 5000
+      - key: Bearer api_612c96169cab58a4_73562f4d4a05b7fe422e2a8c8461ed88
+        query_per_minute: 20
+      - key: Bearer api_612c96169cab58a2_93562f4d4a05b7fe422e2a8c8461ed88
+        query_per_minute: 20
+      - key: Bearer api_612c96169cab58a5_63562f4d4a05b7fe422e2a8c8461ed88
+        query_per_minute: 500
+      - key: Bearer api_612c96169cab58a0_03562f4d4a05b7fe422e2a8c8461ed88
+        query_per_minute: 500
+      - key: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpab
+        query_per_minute: 500
+      - key: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpcd
+        query_per_minute: 500
+      - key: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpef
+        query_per_minute: 500
+      - key: Bearer api_xKmTPqhvBsYcWnJzRfDgAeLiMuGjVwQpgh
+        query_per_minute: 500
+    - limit_by_per_header: Authorization
+      limit_keys:
+      - key: '*'
+        query_per_second: 3
+    rule_name: api-key-request-header-limit-rule
+    show_limit_quota_header: true
+  defaultConfigDisable: true
+  failStrategy: FAIL_OPEN
+  imagePullPolicy: UNSPECIFIED_POLICY
+  matchRules:
+  - config:
+      redis:
+        service_name: redis.dns
+      rule_name: api-key-request-header-limit-rule
+      show_limit_quota_header: true
+    configDisable: true
+    ingress:
+    - kimi-router-ha
+  phase: UNSPECIFIED_PHASE
+  priority: 20
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/cluster-key-rate-limit:2.0.0

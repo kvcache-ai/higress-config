@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: kimi-router-ha
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: kimi-router-ha
+    patch:
+      operation: MERGE
+      value:
+        match:
+          case_sensitive: true
+          prefix: /
+        name: kimi-router-ha
+        route:
+          cluster: outbound|30002||kimi-router-ha-cluster.local
+          timeout: 0s
+  priority: 100
+  workloadSelector:
+    labels:
+      app: higress-gateway

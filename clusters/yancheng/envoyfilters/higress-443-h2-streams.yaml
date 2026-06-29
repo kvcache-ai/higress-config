@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: higress-443-h2-streams
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: NETWORK_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: envoy.filters.network.http_connection_manager
+        portNumber: 443
+    patch:
+      operation: MERGE
+      value:
+        name: envoy.filters.network.http_connection_manager
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          http2_protocol_options:
+            max_concurrent_streams: 10000
+  priority: 110
+  workloadSelector:
+    labels:
+      app: higress-gateway

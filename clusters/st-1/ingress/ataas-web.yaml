@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: ataas-api.ataas.svc.cluster.local:3000
+    higress.io/http2-max-concurrent-streams: "10000"
+    higress.io/ignore-path-case: "false"
+    higress.io/max-requests-per-connection: "0"
+    higress.io/proxy-body-size: 10240m
+    higress.io/proxy-buffering: "off"
+    higress.io/proxy-idle-timeout: 3600s
+    higress.io/proxy-read-timeout: "86400"
+    higress.io/proxy-send-timeout: 3600s
+    higress.io/stream-idle-timeout: 3600s
+    higress.io/upstream-idle-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-next-upstream: error timeout http_500 http_502 http_503 http_504 non_idempotent
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "0"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
+  labels:
+    higress.io/domain_approaching.ataas.cn: "true"
+    higress.io/resource-definer: higress
+  name: ataas-web
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - host: approaching.ataas.cn
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - approaching.ataas.cn
+    secretName: ataas.cn
+status:
+  loadBalancer: {}
